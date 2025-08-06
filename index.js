@@ -8,7 +8,7 @@ const config = {
   user: 'GRUPO01',
   password: 'Grupo01',
   server: '10.120.3.250',
-  database: 'PUMA',
+  database: 'GRUPO01',
   options: {
     encrypt: false,
     trustServerCertificate: true
@@ -24,7 +24,7 @@ app.use(express.static('public'));
 app.get('/api/datos', async (req, res) => {
   try {
     await sql.connect(config);
-    const result = await sql.query('SELECT * FROM BUCOS');
+    const result = await sql.query('SELECT * FROM Dias');
     res.json(result.recordset);
   } catch (err) {
     res.status(500).send(err.message);
