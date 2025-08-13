@@ -31,6 +31,15 @@ app.get('/api/datos', async (req, res) => {
   }
 });
 
+app.get('/api/usuarios', async (req, res) => {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = await response.json();
+        res.json(data); // Usa res.json() para enviar la respuesta JSON
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
 
 
-app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));
+app.listen(4000, () => console.log('Servidor corriendo en puerto 4000'));
