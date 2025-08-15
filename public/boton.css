@@ -1,0 +1,16 @@
+    .boton-enlace {
+      display: inline-block;
+      padding: 20px 30px; /* Ajusta el padding para cambiar el tamaño del botón */
+      font-size: 20px; /* Tamaño de la fuente */
+      color: white; /* Color del texto */
+      background-color: #007BFF; /* Color de fondo */
+      text-align: center; /* Centra el texto */
+      text-decoration: none; /* Elimina el subrayado */
+      border-radius: 5px; /* Bordes redondeados */
+      margin: 10px; /* Margen alrededor del botón */
+      transition: background-color 0.3s ease; /* Efecto de transición para el hover */
+    }
+
+    .boton-enlace:hover {
+      background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
+    }

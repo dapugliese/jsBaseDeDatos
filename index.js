@@ -42,4 +42,4 @@ app.get('/api/usuarios', async (req, res) => {
 });
 
 
-app.listen(4000, () => console.log('Servidor corriendo en puerto 4000'));
+app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));
