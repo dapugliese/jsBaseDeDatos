@@ -42,4 +42,29 @@ app.get('/api/usuarios', async (req, res) => {
 });
 
 
+app.post('/save-data', async (req, res) => {
+    const { codigoDia, descripcionDia } = req.body;
+
+    try {
+        await sql.connect(config);
+        const request = new sql.Request();
+
+        // Use parameterized queries to prevent SQL injection
+        request.input('codigoDia', sql.VarChar, codigoDia);
+        request.input('descripcionDia', sql.VarChar, descripcionDia);
+
+        const result = await request.query(
+            'INSERT INTO Dias (codigoDia, descripcionDia) VALUES (@codigoDia, @descripcionDia)'
+        );
+
+        console.log(result);
+        res.send('Datos guardados exitosamente!');
+    } catch (err) {
+        console.error('Error al guardar los datos:', err);
+        res.status(500).send('Hubo un error al guardar los datos.');
+    } finally {
+        sql.close();
+    }
+});
+
 app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));
