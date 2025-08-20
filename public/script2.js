@@ -1,17 +1,17 @@
 new gridjs.Grid({
     // Define las columnas de la tabla
     columns: [
-        { id: 'id', name: 'ID' },
-        { id: 'title', name: 'Título' },
-        { id: 'body', name: 'Contenido' }
+        { id: 'Iddia', name: 'Iddia' },
+        { id: 'CodigoDia', name: 'CodigoDia' },
+        { id: 'DescripcionDia', name: 'DescripcionDia' }
     ],
    
     sort: true,
     server: {
       //  url: 'https://jsonplaceholder.typicode.com/posts',
 
-        url: 'http://localhost:3000/api/usuarios',
-        then: data => data.map(post => [post.id, post.title, post.body])
+        url: 'http://localhost:3000/api/datos',
+        then: data => data.map(post => [post.Iddia  , post.CodigoDia, post.DescripcionDia])
     },
     pagination: true,
   
