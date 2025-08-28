@@ -13,7 +13,7 @@ new gridjs.Grid({
     server: {
       //  url: 'https://jsonplaceholder.typicode.com/posts',
 
-        url: 'http://localhost:3000/api/datos',
+        url: 'http://localhost:3000/api/personas',
         then: data => data.map(post => [post.PersonaId  , post.Apellido, post.Nombre, post.DNI, post.Email, post.FechaNacimiento])
     },
     pagination: true,

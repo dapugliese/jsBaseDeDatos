@@ -31,6 +31,17 @@ app.get('/api/datos', async (req, res) => {
   }
 });
 
+app.get('/api/personas', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query('SELECT * FROM personas');
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
 app.get('/api/usuarios', async (req, res) => {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -66,5 +77,36 @@ app.post('/save-data', async (req, res) => {
         sql.close();
     }
 });
+
+
+app.post('/save-persona', async (req, res) => {
+    const { apellido, nombre, dni, email, fechaNacimiento } = req.body;
+
+    try {
+        await sql.connect(config);
+        const request = new sql.Request();
+
+        // Use parameterized queries to prevent SQL injection
+        request.input('apellido', sql.VarChar, apellido);
+        request.input('nombre', sql.VarChar, nombre);
+        request.input('dni', sql.VarChar, dni);
+        request.input('email', sql.VarChar, email);
+        request.input('fechaNacimiento', sql.VarChar, fechaNacimiento);
+
+        const result = await request.query(
+            'INSERT INTO Personas (Nombre, Apellido, DNI, Email, FechaNacimiento) VALUES (@nombre,@apellido, @dni, @email, @fechaNacimiento)'
+        );
+
+        console.log(result);
+        res.send('Datos guardados exitosamente!');
+    } catch (err) {
+        console.error('Error al guardar los datos:', err);
+        res.status(500).send('Hubo un error al guardar los datos.');
+    } finally {
+        sql.close();
+    }
+});
+
+
 
 app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));

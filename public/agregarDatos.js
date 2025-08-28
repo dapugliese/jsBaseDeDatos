@@ -4,23 +4,27 @@ document.getElementById('volver').addEventListener('click', function() {
 });
 
 document.getElementById('grabar').addEventListener('click', async () => {
-    
-  console.log('hola');
 
+    // Generan las variables levantandolar del formulario para enviar a la API de registro de Personas
+    const apellido = document.getElementById('apellido').value;
+    const nombre = document.getElementById('nombre').value;
+    const dni = document.getElementById('dni').value;
+    const email = document.getElementById('email').value;
+    const fechaNacimiento = document.getElementById('fechaNacimiento').value;
 
-
-      // Get the data from your input fields
-    const codigoDia = document.getElementById('codigoDia').value;
-    const descripcionDia = document.getElementById('descripcionDia').value;
-
+    // Completar un registro json (javascript object notation)
     const data = {
-        codigoDia: codigoDia,
-        descripcionDia: descripcionDia
+        apellido: apellido,
+        nombre: nombre,
+        dni: dni,
+        email: email,
+        fechaNacimiento: fechaNacimiento
+
     };
 
     try {
         // Send a POST request to your server endpoint
-        const response = await fetch('/save-data', {
+        const response = await fetch('/save-persona', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
