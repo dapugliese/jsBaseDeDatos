@@ -35,6 +35,7 @@ document.getElementById('grabar').addEventListener('click', async () => {
         const result = await response.text();
         alert(result); // Show a confirmation message
         console.log(result);
+        window.location.href = './index.html';
     } catch (error) {
         console.error('Error:', error);
         alert('Hubo un error al guardar los datos.');

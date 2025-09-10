@@ -14,3 +14,16 @@
     .boton-enlace:hover {
       background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
     }
+
+    .mi-icono-grande {
+    font-size: 1.5em; /* O el tamaño en px que prefieras, ej: 24px */
+    color: black; /* Color inicial del ícono */
+    transition: color 0.3s ease; /* Suaviza la transición de color */
+  }
+
+
+  /* Estilo que se aplica cuando el mouse está sobre el enlace */
+  .mi-icono-grande:hover {
+    font-size: 2em;
+    color: #007bff; /* Color que toma al pasar el mouse (ej. azul) */
+  }

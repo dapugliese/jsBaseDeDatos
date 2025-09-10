@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla con Grid.js</title>
+
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <h1>Ejemplo de tabla interactiva</h1>
+
+    <div id="mi-tabla"></div>
+
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+
+    <script>
+        // 4. Datos de ejemplo para la tabla
+        const data = 
+        [
+            ['Tito', 'tito@email.com', 'Programador','a'],
+            ['Juan', 'juan@email.com', 'Diseñador','a'],
+            ['Ana', 'ana@email.com', 'Analista','a'],
+            ['Carlos', 'carlos@email.com', 'Gerente','a'],
+            ['Sofía', 'sofia@email.com', 'Desarrolladora','a'],
+            ['Pedro', 'pedro@email.com', 'Arquitecto','a']
+        ];
+        
+        var hola = [['antonio','jose'],['edwein','mario']]
+
+        // 5. Instancia de Grid.js
+        new gridjs.Grid({
+            // Definición de las columnas (encabezados de la tabla)
+            columns: ['Nombre', 'correo electronico', 'Profesión','Operacion'],
+            
+            // Asignación de los datos a la tabla
+            data: data,
+            
+            // Opciones interactivas
+            search: true, // Habilita la barra de búsqueda
+            sort: true,   // Permite ordenar las columnas al hacer clic
+            pagination: { // Habilita la paginación para limitar las filas por página
+                enabled: true,
+                limit: 5
+            }
+        }).render(document.getElementById('mi-tabla')); // Renderiza la tabla en el div con el ID 'mi-tabla'
+    </script>
+
+</body>
+</html>
