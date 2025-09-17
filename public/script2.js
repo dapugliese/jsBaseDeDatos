@@ -1,3 +1,4 @@
+
 new gridjs.Grid({
     // Define las columnas de la tabla
     columns: [
@@ -8,14 +9,16 @@ new gridjs.Grid({
         { id: 'Email', name: 'Email' },
         { id: 'FechaNacimiento', name: 'FechaNacimiento' },
     
+    
         { name: 'Acciones', // Nombre de la columna
             // Esta función formatea el valor de la celda
             formatter: (cell, row) => {
                 // Devuelve un elemento HTML para la celda
-                return gridjs.html(`<a href="https://www.google.com" target="_blank"><i class="fa-solid fa-pen-to-square mi-icono-grande"></i> </a>`);
+                const personaId = row.cells[0].data; 
+                return gridjs.html(`<a href="./modificarDatos.html?parametro=${personaId}" target="_blank"><i class="fa-solid fa-pen-to-square mi-icono-grande"></i> </a>`);
             }
         }
-            
+       
     ],
    
     sort: true,

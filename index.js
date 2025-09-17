@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const sql = require('mssql');
 const app = express();
 app.use(express.json());
@@ -19,7 +20,8 @@ const config = {
 
 app.use(express.static('public'));
 
-//app.use(cors()); // Permite todas las solicitudes desde cualquier origen
+
+app.use(cors()); // Permite todas las solicitudes desde cualquier origen
 
 app.get('/api/datos', async (req, res) => {
   try {
@@ -110,3 +112,4 @@ app.post('/save-persona', async (req, res) => {
 
 
 app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));
+//app.listen(3000, '0.0.0.0', () => console.log('Servidor corriendo en puerto 3000'));
