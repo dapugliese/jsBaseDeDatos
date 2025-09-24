@@ -43,6 +43,18 @@ app.get('/api/personas', async (req, res) => {
   }
 });
 
+app.get('/api/personasId/:id', async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    await sql.connect(config);
+    const result = await sql.query(`exec sp_consultarPersona ${personaId}`);
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
 
 app.get('/api/usuarios', async (req, res) => {
     try {
