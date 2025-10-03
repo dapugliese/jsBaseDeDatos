@@ -23,6 +23,8 @@ app.use(express.static('public'));
 
 app.use(cors()); // Permite todas las solicitudes desde cualquier origen
 
+/* APIs Que no estoy usando */
+
 app.get('/api/datos', async (req, res) => {
   try {
     await sql.connect(config);
@@ -32,40 +34,6 @@ app.get('/api/datos', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
-app.get('/api/personas', async (req, res) => {
-  try {
-    await sql.connect(config);
-    const result = await sql.query('SELECT * FROM personas');
-    res.json(result.recordset);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
-
-app.get('/api/personasId/:id', async (req, res) => {
-  try {
-    const personaId = req.params.id;
-    await sql.connect(config);
-    const result = await sql.query(`exec sp_consultarPersona ${personaId}`);
-    res.json(result.recordset);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
-
-
-
-app.get('/api/usuarios', async (req, res) => {
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const data = await response.json();
-        res.json(data); // Usa res.json() para enviar la respuesta JSON
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
 
 app.post('/save-data', async (req, res) => {
     const { codigoDia, descripcionDia } = req.body;
@@ -90,6 +58,41 @@ app.post('/save-data', async (req, res) => {
     } finally {
         sql.close();
     }
+});
+
+
+app.get('/api/usuarios', async (req, res) => {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = await response.json();
+        res.json(data); // Usa res.json() para enviar la respuesta JSON
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+
+/* APIs que sí estoy usando en mi proyecto */
+
+app.get('/api/personas', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query('SELECT * FROM personas');
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.get('/api/personasId/:id', async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    await sql.connect(config);
+    const result = await sql.query(`exec sp_consultarPersona ${personaId}`);
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 

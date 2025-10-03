@@ -1,23 +1,20 @@
 
-const parametros = new URLSearchParams(window.location.search);
+document.getElementById('volver').addEventListener('click', function() {
+    
+  window.location.href = './index.html';
+});
 
-const id = parametros.get('parametro');
+const parametro = new URLSearchParams(window.location.search);
 
-console.log(id);
-
-document.getElementById("apellido").value = "CARLOS VILLAGRAN";
-document.getElementById("nombre").value = "MIGUEL ANGEL";
-
-
-
+const id = parametro.get('parametro');
 
 // Definir la URL de tu API
-const url = 'http://localhost:3000/api/personasId';
+const url = 'http://localhost:3000/api/personasId/'+id;
 
 // Usar la función fetch para hacer la solicitud GET
 fetch(url)
   .then(response => {
-    // Verificar si la respuesta fue exitosa (código de estado 200)
+    
     if (!response.ok) {
       // Lanzar un error si la respuesta no es OK
       throw new Error(`Error en la red: ${response.statusText}`);
@@ -26,22 +23,23 @@ fetch(url)
     return response.json();
   })
   .then(data => {
-    // 'data' ahora contiene el JSON que devolvió la API
-    // Asignar el primer elemento del array a variables
-    // Asume que la API devuelve un array con al menos un objeto
     if (data.length > 0) {
-      const persona = data[0];
-      const id = persona.id;
-      const nombre = persona.nombre;
-      const apellido = persona.apellido;
-      
-      console.log(`ID: ${id}`);
-      console.log(`Nombre: ${nombre}`);
-      console.log(`Apellido: ${apellido}`);
 
-      // Aquí puedes usar estas variables para lo que necesites en tu código
-      // Por ejemplo, para actualizar un elemento HTML
-      document.getElementById('nombre-usuario').innerText = nombre + ' ' + apellido;
+      const persona = data[0];
+      const PersonaID = persona.PersonaID;
+      const Nombre = persona.Nombre;
+      const Apellido = persona.Apellido;
+      const DNI = persona.DNI;
+      const Email = persona.Email;
+      const FechaNacimiento = persona.FechaNacimiento;
+      
+
+      document.getElementById("apellido").value = Apellido;
+      document.getElementById("nombre").value = Nombre;
+      document.getElementById("dni").value = DNI;
+      document.getElementById("email").value = Email;
+      document.getElementById("fechaNacimiento").value = FechaNacimiento;
+
     } else {
       console.log('No se encontraron datos de la persona.');
     }
