@@ -15,7 +15,17 @@ new gridjs.Grid({
             formatter: (cell, row) => {
                 // Devuelve un elemento HTML para la celda
                 const personaId = row.cells[0].data; 
-                return gridjs.html(`<a href="./modificarDatos.html?parametro=${personaId}" target="_blank"><i class="fa-solid fa-pen-to-square mi-icono-grande"></i> </a>`);
+                return gridjs.html(`<a href="./modificarDatos.html?parametro=${personaId}" 
+                            target="_blank" style="text-decoration: none;">
+                            <i class="fa-solid fa-pen-to-square mi-icono-grande"
+                            style="text-decoration: none;"
+                            ></i> </a>
+                            <a href="./modificarDatos.html?parametro=${personaId}" 
+                            target="_blank" style="text-decoration: none;">
+                            <i class="fa-solid fa-trash mi-icono-grande"
+                            
+                            style="color: #FF6347; "
+                            ></i> </a>`);
             }
         }
        

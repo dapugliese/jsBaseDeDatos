@@ -19,6 +19,7 @@
     font-size: 1.5em; /* O el tamaño en px que prefieras, ej: 24px */
     color: black; /* Color inicial del ícono */
     transition: color 0.3s ease; /* Suaviza la transición de color */
+    
   }
 
 
