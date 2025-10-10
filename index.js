@@ -125,6 +125,43 @@ app.post('/save-persona', async (req, res) => {
 });
 
 
+app.post('/save-Actualizarpersona', async (req, res) => {
+    console.log('estoy en ...')
+    const { id, apellido, nombre, dni, email, fechaNacimiento } = req.body;
+
+    try {
+        await sql.connect(config);
+        const request = new sql.Request();
+
+        // Use parameterized queries to prevent SQL injection
+        request.input('id', sql.VarChar, id);
+        request.input('apellido', sql.VarChar, apellido);
+        request.input('nombre', sql.VarChar, nombre);
+        request.input('dni', sql.VarChar, dni);
+        request.input('email', sql.VarChar, email);
+        request.input('fechaNacimiento', sql.VarChar, fechaNacimiento);
+
+        
+        const result = await request.query(
+            `update personas 
+                set Nombre = @nombre,
+                    Apellido = @apellido, 
+                    DNI = @dni,
+                    Email = @email,
+                    FechaNacimiento = @fechaNacimiento
+                where PersonaID	=  @id`
+        );
+
+        console.log(result);
+        res.send('Datos guardados exitosamente!');
+    } catch (err) {
+        console.error('Error al guardar los datos:', err);
+        res.status(500).send('Hubo un error al guardar los datos.');
+    } finally {
+        sql.close();
+    }
+});
+
 
 app.listen(3000, () => console.log('Servidor corriendo en puerto 3000'));
 //app.listen(3000, '0.0.0.0', () => console.log('Servidor corriendo en puerto 3000'));
