@@ -95,6 +95,43 @@ app.get('/api/personasId/:id', async (req, res) => {
   }
 });
 
+app.get('/api/eliminarPersonasId/:id', async (req, res) => {
+  try {
+    const personaId = req.params.id;
+    // Conexión a la base de datos
+    await sql.connect(config);
+    
+    // Ejecutar la consulta DELETE
+    const result = await sql.query(`delete from personas where PersonaID = ${personaId}`);
+    
+    // 💡 CORRECCIÓN CRÍTICA: 
+    // Verificar rowsAffected para confirmar la eliminación y enviar un JSON de éxito.
+    // rowsAffected es un array que contiene el número de filas afectadas.
+    if (result.rowsAffected && result.rowsAffected[0] > 0) {
+      
+      // La persona fue eliminada con éxito
+      res.json({ 
+        success: true, 
+        message: `Persona con ID ${personaId} eliminada correctamente.`,
+        deletedId: personaId
+      });
+      
+    } else {
+      
+      // No se eliminaron filas (probablemente la PersonaID no existe)
+      res.status(404).json({ 
+        success: false, 
+        message: `No se encontró la persona con ID ${personaId} para eliminar.` 
+      });
+    }
+  } catch (err) {
+    // Manejo de errores de conexión o SQL
+    res.status(500).json({ 
+        success: false, 
+        message: `Error interno del servidor: ${err.message}` 
+    });
+  }
+});
 
 app.post('/save-persona', async (req, res) => {
     const { apellido, nombre, dni, email, fechaNacimiento } = req.body;

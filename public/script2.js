@@ -15,17 +15,20 @@ new gridjs.Grid({
             formatter: (cell, row) => {
                 // Devuelve un elemento HTML para la celda
                 const personaId = row.cells[0].data; 
+
                 return gridjs.html(`<a href="./modificarDatos.html?parametro=${personaId}" 
                             target="_blank" style="text-decoration: none;">
                             <i class="fa-solid fa-pen-to-square mi-icono-grande"
                             style="text-decoration: none;"
-                            ></i> </a>
-                            <a href="./modificarDatos.html?parametro=${personaId}" 
-                            target="_blank" style="text-decoration: none;">
-                            <i class="fa-solid fa-trash mi-icono-grande"
+                            ></i> <a href="javascript:void(0);" 
+                    onclick="eliminarPersona(${personaId});" 
+                    style="text-decoration: none;">
+                        <i class="fa-solid fa-trash mi-icono-grande"
+                        style="color: #FF6347; "
+                        ></i> 
+                    </a>`);
                             
-                            style="color: #FF6347; "
-                            ></i> </a>`);
+
             }
         }
        
@@ -54,3 +57,44 @@ new gridjs.Grid({
         }
     }
 }).render(document.getElementById('wrapper')); 
+
+
+
+
+// Function to delete a person by their ID
+function eliminarPersona(personaId) {
+    
+    // ⚠️ IMPORTANT: Replace 'http://tu-servidor' with the actual base URL of your application
+    const url = `http://localhost:3000/api/eliminarPersonasId/${personaId}`; 
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                // Siempre verificar el estado HTTP
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const contentType = response.headers.get("content-type");
+            
+            if (contentType && contentType.includes("application/json")) {
+                // 1. Aquí se devuelve la Promesa de JSON (pending en este punto)
+                return response.json(); 
+            } else {
+                console.warn("Respuesta sin JSON. Asumiendo éxito.");
+                return { success: true }; 
+            }            
+
+        })
+        .then(data => {
+            // Handle the successful deletion here
+            console.log("Persona eliminada con éxito. Respuesta del servidor:", data);
+            alert(`La persona con ID ${personaId} ha sido eliminada.`);
+            // You might want to refresh the page or update the list of people here
+            window.location.reload();
+        })
+        .catch(error => {
+            // Handle any errors during the fetch or processing
+            console.error("Hubo un error al eliminar la persona:", error);
+            alert(`Error al eliminar: ${error.message}`);
+        });
+}
