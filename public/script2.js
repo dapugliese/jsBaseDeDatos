@@ -64,7 +64,6 @@ new gridjs.Grid({
 // Function to delete a person by their ID
 function eliminarPersona(personaId) {
     
-    // ⚠️ IMPORTANT: Replace 'http://tu-servidor' with the actual base URL of your application
     const url = `http://localhost:3000/api/eliminarPersonasId/${personaId}`; 
 
     fetch(url)
@@ -75,7 +74,6 @@ function eliminarPersona(personaId) {
             }
             
             const contentType = response.headers.get("content-type");
-            
             if (contentType && contentType.includes("application/json")) {
                 // 1. Aquí se devuelve la Promesa de JSON (pending en este punto)
                 return response.json(); 
@@ -86,14 +84,11 @@ function eliminarPersona(personaId) {
 
         })
         .then(data => {
-            // Handle the successful deletion here
             console.log("Persona eliminada con éxito. Respuesta del servidor:", data);
             alert(`La persona con ID ${personaId} ha sido eliminada.`);
-            // You might want to refresh the page or update the list of people here
             window.location.reload();
         })
         .catch(error => {
-            // Handle any errors during the fetch or processing
             console.error("Hubo un error al eliminar la persona:", error);
             alert(`Error al eliminar: ${error.message}`);
         });

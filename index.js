@@ -1,7 +1,10 @@
 const express = require('express');
+const app = express();
+
 const cors = require('cors');
 const sql = require('mssql');
-const app = express();
+
+
 app.use(express.json());
 
 
@@ -100,13 +103,9 @@ app.get('/api/eliminarPersonasId/:id', async (req, res) => {
     const personaId = req.params.id;
     // Conexión a la base de datos
     await sql.connect(config);
-    
     // Ejecutar la consulta DELETE
     const result = await sql.query(`delete from personas where PersonaID = ${personaId}`);
-    
     // 💡 CORRECCIÓN CRÍTICA: 
-    // Verificar rowsAffected para confirmar la eliminación y enviar un JSON de éxito.
-    // rowsAffected es un array que contiene el número de filas afectadas.
     if (result.rowsAffected && result.rowsAffected[0] > 0) {
       
       // La persona fue eliminada con éxito
