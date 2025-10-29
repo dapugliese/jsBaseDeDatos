@@ -162,14 +162,10 @@ app.post('/save-persona', async (req, res) => {
 
 
 app.post('/save-Actualizarpersona', async (req, res) => {
-    console.log('estoy en ...')
     const { id, apellido, nombre, dni, email, fechaNacimiento } = req.body;
-
     try {
         await sql.connect(config);
         const request = new sql.Request();
-
-        // Use parameterized queries to prevent SQL injection
         request.input('id', sql.VarChar, id);
         request.input('apellido', sql.VarChar, apellido);
         request.input('nombre', sql.VarChar, nombre);

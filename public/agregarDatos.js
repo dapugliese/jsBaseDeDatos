@@ -22,9 +22,11 @@ document.getElementById('grabar').addEventListener('click', async () => {
 
     };
 
+    const urlApi = 'http://localhost:3000/api/personas'
+
     try {
         // Send a POST request to your server endpoint
-        const response = await fetch('/save-persona', {
+        const response = await fetch(urlApi, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
